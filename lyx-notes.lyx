@@ -1,0 +1,4566 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass literate-article
+\begin_preamble
+\usepackage[all]{xy}
+
+% define new commands used in sec. 5.1
+\newcommand{\xyR}[1]{
+  \xydef@\xymatrixrowsep@{#1}}
+\newcommand{\xyC}[1]{
+  \xydef@\xymatrixcolsep@{#1}}
+
+\newdir{|>}{!/4.5pt/@{|}*:(1,-.2)@^{>}*:(1,+.2)@_{>}}
+
+% a pdf-bookmark for the TOC is added
+\let\myTOC\tableofcontents
+\renewcommand\tableofcontents{%
+  \pdfbookmark[1]{\contentsname}{}
+  \myTOC }
+
+% redefine the \LyX macro for PDF bookmarks
+\def\LyX{\texorpdfstring{%
+  L\kern-.1667em\lower.25em\hbox{Y}\kern-.125emX\@}
+  {LyX}}
+
+
+\@ifundefined{lstset}{}{
+\noweboptions{longchunks,smallcode}
+\lstset{ 
+basicstyle=\footnotesize,
+breaklines=true,
+breakatwhitespace=true,
+resetmargins=true,
+xleftmargin=3em
+}
+}
+\sloppy
+\usepackage{alltt}
+\usepackage{fancybox}
+\end_preamble
+\use_default_options false
+\maintain_unincluded_children false
+\language russian
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format dvi
+\output_sync 1
+\output_sync_macro "\usepackage[active]{srcltx}"
+\bibtex_command bibtex
+\index_command default
+\paperfontsize 11
+\spacing single
+\use_hyperref true
+\pdf_title "Using XY-pc in LyX"
+\pdf_author "H. Peter Gumm"
+\pdf_subject "LyX's XY-pic manual"
+\pdf_keywords "LyX, documentation"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 2
+\pdf_breaklinks true
+\pdf_pdfborder false
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle false
+\pdf_quoted_options "linkcolor=black, citecolor=black, urlcolor=blue, filecolor=blue,pdfpagelayout=OneColumn, pdfnewwindow=true,pdfstartview=XYZ, plainpages=false, pdfpagelabels"
+\papersize a4paper
+\use_geometry true
+\use_amsmath 2
+\use_esint 0
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2.5cm
+\topmargin 1cm
+\rightmargin 1.5cm
+\bottommargin 3cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language polish
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict true
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Заметки о 
+\begin_inset Quotes pld
+\end_inset
+
+грамотном программировании
+\begin_inset Quotes prd
+\end_inset
+
+ в текстовом процессоре LyX
+\end_layout
+
+\begin_layout Author
+Дьяков С.Е.
+\end_layout
+
+\begin_layout Date
+26 сентября 2012 г.
+\end_layout
+
+\begin_layout Abstract
+Описан опыт использования текстового процессора LyX как среды создания 
+\begin_inset Quotes pld
+\end_inset
+
+грамотных
+\begin_inset Quotes prd
+\end_inset
+
+ программ с использованием пакета NoWeb.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Введение
+\end_layout
+
+\begin_layout Standard
+Программный продукт, в общем случае, включает с себя не только тексты программ,
+ но и различную документацию: проектную, техническую, пользовательскую и
+ маркетинговую.
+ В зависимости от объема программы, требований к программе и выразительности
+ технических средств 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Joel2006"
+
+\end_inset
+
+, некоторые виды данной документации могут отсутствовать, или включаться
+ в исходный текст программы в виде комментариев.
+\end_layout
+
+\begin_layout Standard
+Проектная и техническая документация включает информацию о оказывающих влияние
+ на программу в целом архитектурных решениях, принимаемых на этапах планирования
+, проектирования и разработки.
+ Выделение документации в отдельные документы, естественное и неизбежное
+ в случае больших проектов, приводит к серьезной проблеме синхронизации
+ документации и исходного кода.
+ Значимость данной проблемы в плане технической документации и один из методов
+ решения --- создание самодокументируемых программ --- описана Фредериком
+ Бруксом 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Bruks2009"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Одним из способов 
+\begin_inset Quotes pld
+\end_inset
+
+обхода
+\begin_inset Quotes prd
+\end_inset
+
+ проблемы синхронизации проектной документации и текста программы, является
+ использование 
+\begin_inset Quotes pld
+\end_inset
+
+грамотного программирования
+\begin_inset Quotes prd
+\end_inset
+
+ --- методики которая предлагает программисту объединить проектную и техническую
+ документацию вместе и исходным текстом программы в рамках одного единого
+ документа.
+\end_layout
+
+\begin_layout Standard
+
+\shape italic
+В рамках данной статьи будет кратко описана идеология и история грамотного
+ программирования, приведен пример программирования в текстовом процессоре
+ LyX.
+\end_layout
+
+\begin_layout Subsection
+Краткий обзор грамотного программирования
+\end_layout
+
+\begin_layout Standard
+\begin_inset Quotes pld
+\end_inset
+
+Грамотное программирование
+\begin_inset Quotes prd
+\end_inset
+
+ (в дальнейшем ГП) --- это методика написания программ делающая упор не
+ на написании собственно кода программы, а на 
+\shape italic
+последовательном письменном
+\shape default
+ рассмотрении всех тех задач которые решает программист получивший задание,
+ от начала и до самого конца.
+ При этом текст собственно программы генерируется автоматически на основе
+ полученного документа.
+ 
+\end_layout
+
+\begin_layout Standard
+ГП может использоваться (и используется) для написания программ в которых
+ объем и/или ценность знаний относительно велика по сравнению с объемом
+ кода.
+ При этом время написания программ увеличивается, но возрастает и 
+\begin_inset Quotes pld
+\end_inset
+
+время жизни
+\begin_inset Quotes prd
+\end_inset
+
+ программы, снижается стоимость сопровождения.
+\end_layout
+
+\begin_layout Standard
+Первыми системами грамотного программирования были системы WEB 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "knuth1983web"
+
+\end_inset
+
+и CWEB 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "levy1994cweb"
+
+\end_inset
+
+, которые использовались для создания системы верстки TeX и шрифтовой системы
+ METAFONT.
+ Данный опыт, был, по мнению автора, удачным так-как указанные программы,
+ несмотря на их сложность, были созданы силами одного программиста за короткое
+ время и получили широкое распространение.
+ Тексты данных программ были опубликованы в виде отдельных книг 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "knuth1986tex,knuth1998metafont"
+
+\end_inset
+
+.
+ В интервью, говоря о влиянии методологии ГП на создание этих программ и
+ других программ, Д.
+ Кнут говорит: 
+\end_layout
+
+\begin_layout Quote
+Этот подход не только позволил мне писать и поддерживать программы быстрее
+ и надежнее, чем когда бы то ни было раньше, и он не только был для меня
+ самым большим источником удовольствия, начиная с 1980-х гг.
+ – он иногда оказывался незаменимым.
+ Некоторые из моих основных программ, такие как метасимулятор MMIX, не могли
+ бы быть написаны с применением любой другой методологии, о которой я когда-либо
+ слышал.
+ Сложность была просто чересчур устрашающей, чтобы с ней можно было справиться
+ на основе моих ограниченных умственных возможностей; без применения грамотного
+ программирования все предприятие потерпело бы полную неудачу.
+\end_layout
+
+\begin_layout Standard
+Для того, чтобы использовать ГП необходимы средства извлечения текста программ
+ из документа, и дополнительной подготовки документа к печати.
+ Совокупность этих средств я называю системой грамотного программирования.
+ 
+\end_layout
+
+\begin_layout Standard
+Особенностями первых систем грамотного программирования были 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Childs:1992:ELP"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Enumerate
+использование языка разметки TeX, как средства оформления документации;
+\end_layout
+
+\begin_layout Enumerate
+широкое использование макросов как средств обобщенного программирования;
+\end_layout
+
+\begin_layout Enumerate
+автоматическое создание указателей переменных, функций, типов и модулей
+ для того, чтобы облегчить анализ созданных программ.
+\end_layout
+
+\begin_layout Standard
+Опыт использования грамотного программирования с точки зрения повторного
+ использования программ и обучения был описан С.Бартом и его последователями.
+ Например, в статьях 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Childs:1992:ELP,childs1997analysis"
+
+\end_inset
+
+ описан опыт переноса системы TeX и родственных программ (MetaPOST, MetaFONT)
+ на новую платформу --- систему Data General AOS, при этом упоминается,
+ что полный перенос сложной и большой программы на новую аппаратную платформу
+ занял три дня.
+\end_layout
+
+\begin_layout Standard
+Опыт использования грамотного программирования при обучении программированию
+ и решению задач (CS1) также оказался положительным 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "childs1995teaching"
+
+\end_inset
+
+, при этом была обнаружена зависимость между умением использовать грамотное
+ программирование и пониманием следующего курса --- CS2.
+ 
+\end_layout
+
+\begin_layout Standard
+Другой эксперимент, связанный с разработкой и поддержкой разработки программ,
+ был проведен и описан Норманом Рамси 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ramsey:literate"
+
+\end_inset
+
+.
+ В рамках эксперимента, в ходе которого небольшая группа программистов разрабаты
+вала систему семантического анализа программ на языке Ада, была подтверждена
+ эффективность методики грамотного программирования, которая облегчила взаимодей
+ствие между программистами, способствовала созданию высококачественной и
+ полезной документации.
+ При этом участники заявляли о следующих недостатках технических средств
+ ГП: сложность системы TeX, как системы подготовки документации; неудобство
+ текстового редактора emacs; отсутствие практической пользы от средств художеств
+енного оформления текстов программ, которые, к тому-же игнорируют отступы
+ и разрывы строк сделанные программистами, исходя из логики программы.
+\end_layout
+
+\begin_layout Standard
+Технически грамотное программирование состоит из нескольких независимых
+ частей, каждая из которых может отсутствовать.
+ К этим частям, по крайнем мере, относятся: возможность оформления комментариев,
+ использования формул, таблиц, изображений и т.п.
+ в комментариях, создание текста программы и технической документации к
+ нему из одного единого документа, обобщенного программирования с помощью
+ системы макросов, автоматическое типографское оформление текста программ
+ и функций, автоматическое создание списка функций, переменных и модулей,
+ автоматический контроль ссылок на переменные и функции, использование системы
+ верстки TeX/LaTeX для оформления документации.
+\end_layout
+
+\begin_layout Standard
+Так-как требования и вкусы программистов различаются, а создание системы
+ грамотного программирования сравнительно несложная задача, было разработано
+ большое количество систем грамотного программирования.
+\end_layout
+
+\begin_layout Standard
+В настоящее время эксплуатируются следующие системы с полной реализацией
+ всех частей грамотного программирования для одного или нескольких языков
+ программирования: WEB
+\begin_inset CommandInset citation
+LatexCommand cite
+key "knuth1983web"
+
+\end_inset
+
+, CWEB 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "levy1994cweb"
+
+\end_inset
+
+, FWEB 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "FWEB"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Между тем, распространение получили системы грамотного программирования
+ без возможности вывода кода программ с выделением синтаксиса и некоторые
+ возможности WEB для индексации, но с поддержкой макросов: FunnelWEB 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Williams:1992:FUM"
+
+\end_inset
+
+, nuweb 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Briggs:1993:NSL"
+
+\end_inset
+
+, fangle 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "fange"
+
+\end_inset
+
+ и некоторые другие.
+\end_layout
+
+\begin_layout Standard
+Норман Рамси, исходя из результатов своего эксперимента 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ramsey:literate"
+
+\end_inset
+
+, предпочел отказаться как от макросов, так и от оформления исходного кода
+ выводимых программ и создал свою систему грамотного программирования noweb
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ramsey1994literate"
+
+\end_inset
+
+.
+ Данная система отличается простотой и внутренней ортогональностью.
+ Возможно, это самая простая система грамотного программирования из возможных,
+ для её описания достаточно двух-трех абзацев.
+\end_layout
+
+\begin_layout Standard
+Помимо систем грамотного программирования общего назначения, существуют,
+ используются системы специальные, ориентированные не только на один язык
+ программирования, но и на одну узкую область использования, например для
+ статистической обработки данных --- система Sweave и 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "rwined"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Наконец, поддержка некоторых элементов грамотного программирования встраивается
+ как с среды разработки, например LEP
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Leis:2005"
+
+\end_inset
+
+ для IDE Eclipse, так и в языки программирования, такие как Haskel 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Haskel"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Для эффективного создания программ недостаточно иметь систему грамотного
+ программирования --- нужна среда для создания программ.
+ В качестве среды могут использоваться как обычный текстовой редактор, возможно
+ настроенный соответствующим образом как emacs 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kortright:1992:CCT"
+
+\end_inset
+
+ и vim, так и специализированные редакторы, ориентированные именного на
+ литературное программирование, такие как Leo 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ream:2002:LLP,Ream:2002:LSP"
+
+\end_inset
+
+, RWINED 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "rwined"
+
+\end_inset
+
+ и HOPS 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kahl99theterm"
+
+\end_inset
+
+, предлагающие расширенные средства навигации по документу и визуализации
+ диаграмм, графиков и т.п.
+\end_layout
+
+\begin_layout Standard
+Эффективное создание программ предусматривает полную концентрацию программиста,
+ на том, что он делает в данный момент, и устранение всего, что мешает концентра
+ции 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Joel2006"
+
+\end_inset
+
+.
+ Для создания программ в 
+\shape italic
+некоторых областях
+\shape default
+, эффективным может быть использование обычного текстового редактора.
+ Возможно, старейшей их таких система является система WinWordWeb 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "WinWordWEB"
+
+\end_inset
+
+, которая в настоящее время не поддерживается, или, например, использование
+ простой системы грамотного программирования noweb, вместе с текстовым процессор
+ом LyX 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "LyxInNoWeb"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Отказ от попыток понравиться всем и захватить мир
+\end_layout
+
+\begin_layout Standard
+Подход грамотного программирования используется сравнительно редко 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Childs:2010:TYL"
+
+\end_inset
+
+ и считается экзотическим.
+ Говорят, что для того, чтобы писать грамотные программы, надо уметь не
+ только программировать, но и писать ясные, структурированные тексты 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "sdtimes_2012"
+
+\end_inset
+
+, что два этих умения редко встречаются у одного и того-же программиста.
+\end_layout
+
+\begin_layout Standard
+С этим можно поспорить.
+ 
+\end_layout
+
+\begin_layout Standard
+Грамотное программирования, возможно, действительно не подходит для программиров
+ания массового.
+ С другой стороны, не существует стиля или методики программирования, будь
+ то экстремальное программирования, или методы быстрой разработки или разработки
+ через тестирование который подходил бы для всех задач и для всех программистов.
+\end_layout
+
+\begin_layout Standard
+Данный метод идеально работает в тех случаях, когда надо рассмотреть и задачу,
+ и алгоритм и решение, когда объяснение само по себе является ценностью.
+\end_layout
+
+\begin_layout Standard
+Он хорош для использования в научной среде 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Schulte:2012:MLC"
+
+\end_inset
+
+, в тех случаях когда решение надо обосновывать.
+\end_layout
+
+\begin_layout Standard
+Существуют примеры успешного использования данного подхода для создания
+ книг по программированию или описанию тех или иных методик расчетов 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ruckert:2005:UMS,Potse2002225,pharr2010physically,hinchliffe2006chemical"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Поэтому грамотное программирование, конечно, никогда не станет превалирующим
+ методом программирования, но никогда и не умрет.
+ Оно постепенно найдет свою нишу, и сделает жизнь там немного лучше.
+\end_layout
+
+\begin_layout Subsubsection
+Семантическоее явля
+\end_layout
+
+\begin_layout Subsubsection
+Упрощенное
+\end_layout
+
+\begin_layout Subsubsection
+Упрощенное, ориентированное на использование текстовых процессоров
+\end_layout
+
+\begin_layout Standard
+NoWeb with Lyx, WinWordWeb
+\end_layout
+
+\begin_layout Subsubsection
+Синтетическое
+\end_layout
+
+\begin_layout Subsection
+Опыт использования ГП в научных исследованиях, прикладном программировании
+ и обучении программированию.
+ Будущее ГП.
+ 
+\end_layout
+
+\begin_layout Subsection
+Узкая постановка задачи.
+ Цели исследования
+\end_layout
+
+\begin_layout Standard
+Thinking with Style (Daniel Lanovaz, Los GatosТехнология грамотного программиров
+ания (далее в тексте --- ГП) описана в книге Д.
+ Кнута 
+\begin_inset Quotes pld
+\end_inset
+
+Literate programming
+\begin_inset Quotes prd
+\end_inset
+
+.
+ На русском языке краткое описание ГП опубликовал Андрей Зубнинский 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Zubninskij_2002"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Инструментальные средства ГП были предложены в конце 80-х годов и соответствовал
+и уровню языков и сред того времени.
+ Предполагалось, что документ ГП это текст в формате TeX созданный в обычном
+ текстовом редакторе, при этом в документ включаются кусочки программ и
+ управляющие конструкции системы ГП.
+ Пригодный к печати текст документации и исходный текст программы будут
+ генерироваться подготовленного документа.
+ Язык ГП был достаточно развитым, он позволял получать текст программы полиграфи
+ческого качества для распространенных языков программирования, поддерживал
+ использование макросов.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Wrap figure
+lines 0
+placement R
+overhang 0in
+width "40col%"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Пример создания программы в LyX
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "LyXscreen"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename screenshot.png
+	lyxscale 30
+	width 40col%
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Опыт использования ГП для разработки значительной по объему программы (33
+\begin_inset space ~
+\end_inset
+
+000 строк) силами группы из семи сотрудников описан в статье Нормана Рамсея
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ramsey:literate"
+
+\end_inset
+
+.
+ Данный опыт показал как перспективность данной технологии, так и недостатки
+ её использования и реализации.
+ В частности, ориентация на высокое качество печатного варианта программы
+ не оправдывает себя, и вредит в том случае, если программист не может фактическ
+и управлять размером отступов и переносами строк текста программы.
+ Далее, использование сложного языка верстки TeX мешает использованию технологии
+, к тому-же TeX недостаточно выразителен и не содержит средств для вставки
+ диаграмм, графиков и т.п.
+ С другой стороны, было обнаружено что качество и кода и документации растут,
+ если программист описывает что, зачем и как делает та или иная часть программы.
+ В конечном итоге, к качеству и полезности документации к программе не было
+ никаких претензий.
+\end_layout
+
+\begin_layout Standard
+В настоящее в время, необходимость изучения дополнительного (и сложного)
+ языка верстки, мешает использованию 
+\begin_inset Quotes pld
+\end_inset
+
+грамотного программирования
+\begin_inset Quotes prd
+\end_inset
+
+ даже областях, для которых оно идеально подходит, а сложность и непривычность
+ инструментальных средств делает его применение достаточно редким, о чем
+ и говорится в статье А.
+\begin_inset space \thinspace{}
+\end_inset
+
+Зубнинского.
+ Необходимо сказать, что проектирование удобных инструментальных средств
+ для грамотного программирования чрезвычайно сложная задача, а их наличие
+ --- жизненно важно для использования технологии.
+\end_layout
+
+\begin_layout Standard
+Поэтому продолжаются попытки создания инструментальных средств ГП, к которым
+ можно отнести текстовой редактор Leo 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ream:2002:LLP,Ream:2002:LSP"
+
+\end_inset
+
+, расширения редакторов emacs 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kortright:1992:CCT"
+
+\end_inset
+
+ и vim, редакторов RWINED 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "rwined"
+
+\end_inset
+
+ и HOPS 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kahl99theterm"
+
+\end_inset
+
+, средства ГП встроены в язык программирования Haskell 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "jones2003haskell"
+
+\end_inset
+
+, существует версия языка программирования статистических расчетов R ---
+ Sweave 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Leis:2005"
+
+\end_inset
+
+, ориентированная именно на ГП.
+ Все это говорит о том, что ГП действительно позволяет сконцентрироваться
+ на болевой точке современного программирования и повысить качество программ,
+ хотя и ценой сравнительно больших первоначальных затрат.
+ 
+\end_layout
+
+\begin_layout Standard
+Использование ГП в образовании описано в статье 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cockburn:1997:TLT:299359.299376"
+
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Standard
+В данной статье описывается опыт использования текстового процессора LyX
+ для ГП 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "kastrup2002revisiting"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Свободный текстовой процессор LyX , созданный Маттиасом Эттрихом и другими
+ разработчиками, придерживается идеологии WYSIWYM (what you see is what
+ you mean, примерный перевод — 
+\begin_inset Quotes pld
+\end_inset
+
+видишь то, что подразумеваешь
+\begin_inset Quotes prd
+\end_inset
+
+), слегка напоминает популярный редактор Microsoft Word, и генерирует файлы
+ для системы TeX 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "knuth1986texbook"
+
+\end_inset
+
+.
+ Более того, данный текстовой процессор содержит средства интеграции с простой
+ системой ГП NoWeb 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ramsey1994literate"
+
+\end_inset
+
+.
+ (Несколько более мощная система ГП fangle тоже может использоваться для
+ ГП.
+ Кроме этого LyX содержит средства интеграции и с системой ГП на языке R
+ Sweave.)
+\end_layout
+
+\begin_layout Standard
+Использование текстового процессора LyX для создания программ в стиле 
+\begin_inset Quotes pld
+\end_inset
+
+грамотного программирования
+\begin_inset Quotes prd
+\end_inset
+
+ целесообразно в некоторых предметных областях, связанных с разработкой
+ методов и алгоритмов обработки данных, что подтверждается практикой авторов.
+ Было обнаружено, что использование текстового процессора удобно при создании
+ \SpecialChar \ldots{}
+ программ (Рис.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "LyXscreen"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+В данной статье описан пример использования программы LyX для создания учебных
+ программ.
+\end_layout
+
+\begin_layout Standard
+Эта работа не является в полной мере пионерской.
+ Авторам удалось найти текст лекции Х.Рамачадрана, посвященной использованию
+ LyX для программирования в scilab 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ramachandran_2009"
+
+\end_inset
+
+.
+ Данная работа отличается ориентацией на использование LyX в реальном программир
+овании, что требует создания средств локализации ошибок, интеграции системы
+ сборки программ и т.п.
+\end_layout
+
+\begin_layout Section
+Кратко о текстовом процессоре LyX
+\end_layout
+
+\begin_layout Standard
+LyX — свободный процессор документов, основанный на системе компьютерной
+ вёрстки LaTeX, первые версии которого были созданы Маттиасом Эттихом, ведущим
+ разработчиком KDE.
+ 
+\end_layout
+
+\begin_layout Standard
+К особенностям программы можно отнести:
+\end_layout
+
+\begin_layout Enumerate
+удобный интерфейс пользователя, напоминающий популярный текстовой редактор
+ Microsoft Word;
+\end_layout
+
+\begin_layout Enumerate
+ориентацию на определение структуры документа, и автоматическую верстку
+ представления на основе механизма шаблонов;
+\end_layout
+
+\begin_layout Enumerate
+наличие средств для использования БД библиографических источников, создания
+ перекрестных ссылок, автоматического формирования предметных указателей,
+ оглавлений и других навигационных элементов;
+\end_layout
+
+\begin_layout Enumerate
+возможность автоматического экспорта текста документа в форматы html, pdf
+ и другие;
+\end_layout
+
+\begin_layout Enumerate
+наличие встроенного самоучителя, переведенного на русский язык;
+\end_layout
+
+\begin_layout Enumerate
+отсутствие возможности создания собственных стилей, так-как набор используемых
+ стилей жестко задан шаблоном документа.
+\end_layout
+
+\begin_layout Standard
+В настоящее время тестовой процессор LyX это мощное и удобное средство создания
+ значительных по объему документов, гарантирующее профессиональное качество
+ печатного документа.
+\end_layout
+
+\begin_layout Section
+Кратко о системе грамотного программирования NoWeb
+\end_layout
+
+\begin_layout Standard
+По сравнению с другими системами грамотного программирования система NoWeb
+ отличается простотой.
+ Исходный файл документа системы --- это обычный файл в формате LaTeX и
+ с расширением .nw.
+ В этом файле находятся определения кусочков кода программы --- так называемых
+ чанков.
+\end_layout
+
+\begin_layout Standard
+Чанк определяется следующим образом:
+\end_layout
+
+\begin_layout LyX-Code
+<<имя чанка>>=
+\end_layout
+
+\begin_layout LyX-Code
+текст чанка строка 1
+\end_layout
+
+\begin_layout LyX-Code
+текст чанка строка 2
+\end_layout
+
+\begin_layout LyX-Code
+    <<имя чанка 2>>
+\end_layout
+
+\begin_layout LyX-Code
+текст чанка строка 2
+\end_layout
+
+\begin_layout LyX-Code
+@
+\end_layout
+
+\begin_layout Standard
+Начинается чанк с новой строки и символов 
+\begin_inset Quotes pld
+\end_inset
+
+
+\family typewriter
+<<
+\family default
+
+\begin_inset Quotes prd
+\end_inset
+
+.
+ Имя чанка может включать пробелы и любые другие символы, доступные в тексте
+ LaTeX.
+ текст чанка завершается строкой с символом 
+\begin_inset Quotes pld
+\end_inset
+
+@
+\begin_inset Quotes prd
+\end_inset
+
+.
+ Чанк может включать ссылки на другие чанки, в тексте это 
+\family typewriter
+<<имя чанка 2>>
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+Команда 
+\family typewriter
+notangle
+\family default
+ позволяет выделить из документа чанки с определенным корнем и сохранить
+ их в файл.
+\end_layout
+
+\begin_layout Standard
+Пример документа noweb и полученного текста программы приведен в таблице
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "table1001"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{Sbox}%
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minipage}{0.4
+\backslash
+textwidth}%
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+footnotesize
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{alltt}
+\end_layout
+
+\begin_layout Plain Layout
+
+Программа должна находить 
+\end_layout
+
+\begin_layout Plain Layout
+
+наибольший общий делитель двух 
+\end_layout
+
+\begin_layout Plain Layout
+
+целых чисел с помощью 
+\end_layout
+
+\begin_layout Plain Layout
+
+алгоритма Евклида.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+<{}<NOD.cpp>{}>=
+\end_layout
+
+\begin_layout Plain Layout
+
+#include <stdio.h>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+<{}<функции>{}>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+int main()
+\backslash
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+   <{}<основная функция>>
+\end_layout
+
+\begin_layout Plain Layout
+
+   return 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+{}@{}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Получим два числа, НОД которых 
+\end_layout
+
+\begin_layout Plain Layout
+
+необходимо найти.
+\end_layout
+
+\begin_layout Plain Layout
+
+<{}<основная функция>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+int a, b;
+\end_layout
+
+\begin_layout Plain Layout
+
+scanf( "%d %d", &a, &b );
+\end_layout
+
+\begin_layout Plain Layout
+
+{}@
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Алгоритм вычисления НОД реализуем 
+\end_layout
+
+\begin_layout Plain Layout
+
+с помощью рекурсивной функции.
+\end_layout
+
+\begin_layout Plain Layout
+
+<{}<функции>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+int NOD(int a, int b )
+\backslash
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+   <{}<NOD>>
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+{}@
+\end_layout
+
+\begin_layout Plain Layout
+
+вызовем её и выведем ответ:
+\end_layout
+
+\begin_layout Plain Layout
+
+<{}<основная функция>{}>=
+\end_layout
+
+\begin_layout Plain Layout
+
+printf( "NOD(%d,%d) = %d{
+\backslash
+textbackslash}n", 
+\end_layout
+
+\begin_layout Plain Layout
+
+         a, b, NOD(a,b) );
+\end_layout
+
+\begin_layout Plain Layout
+
+{}@
+\end_layout
+
+\begin_layout Plain Layout
+
+Заполним определение функции NOD 
+\end_layout
+
+\begin_layout Plain Layout
+
+реализовав рекурсивный алгоритм [1].
+\end_layout
+
+\begin_layout Plain Layout
+
+1.
+ НОД(0, n) = n;
+\end_layout
+
+\begin_layout Plain Layout
+
+{}<{}<NOD>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+if( a == 0 ) return b;
+\end_layout
+
+\begin_layout Plain Layout
+
+{}@
+\end_layout
+
+\begin_layout Plain Layout
+
+2.
+ НОД(m, 0) = m;
+\end_layout
+
+\begin_layout Plain Layout
+
+{}<{}<NOD>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+if( b == 0 ) return a;
+\end_layout
+
+\begin_layout Plain Layout
+
+{}@
+\end_layout
+
+\begin_layout Plain Layout
+
+3.
+ НОД(m, m) = m;
+\end_layout
+
+\begin_layout Plain Layout
+
+{}<{}<NOD>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+if( a == b ) return a;
+\end_layout
+
+\begin_layout Plain Layout
+
+{}@
+\end_layout
+
+\begin_layout Plain Layout
+
+4.
+ n>m -> НОД(n, m) = НОД( n % m, m)
+\end_layout
+
+\begin_layout Plain Layout
+
+{}<{}<NOD>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+if( a > b ) return NOD(a%b, b);
+\end_layout
+
+\begin_layout Plain Layout
+
+{}@
+\end_layout
+
+\begin_layout Plain Layout
+
+4.
+ n<m -> НОД(n, m) = НОД( n , m % n)
+\end_layout
+
+\begin_layout Plain Layout
+
+{}<{}<NOD>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+if( a < b ) return NOD(a, b%a);
+\end_layout
+
+\begin_layout Plain Layout
+
+{}@
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{alltt}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minipage}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{Sbox}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newsavebox{
+\backslash
+prog}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+sbox{
+\backslash
+prog}{
+\backslash
+TheSbox}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{Sbox}%
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minipage}{0.4
+\backslash
+textwidth}%
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+footnotesize
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{alltt}
+\end_layout
+
+\begin_layout Plain Layout
+
+#include <stdio.h>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+int NOD(int a, int b )
+\backslash
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+   if( a == 0 ) return b;
+\end_layout
+
+\begin_layout Plain Layout
+
+   if( b == 0 ) return a;
+\end_layout
+
+\begin_layout Plain Layout
+
+   if( a == b ) return a;
+\end_layout
+
+\begin_layout Plain Layout
+
+   if( a > b ) return NOD(a%b, b);
+\end_layout
+
+\begin_layout Plain Layout
+
+   if( a < b ) return NOD(a, b%a); 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+int main()
+\backslash
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+   int a, b;
+\end_layout
+
+\begin_layout Plain Layout
+
+   scanf( "%d %d", &a, &b );
+\end_layout
+
+\begin_layout Plain Layout
+
+   printf( "NOD(%d,%d) = %d{
+\backslash
+textbackslash}n",
+\end_layout
+
+\begin_layout Plain Layout
+
+             a, b, NOD(a,b) );    
+\end_layout
+
+\begin_layout Plain Layout
+
+   return 0; 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{alltt}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minipage}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{Sbox}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+newsavebox{
+\backslash
+progg}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+sbox{
+\backslash
+progg}{
+\backslash
+TheSbox}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="3">
+<features tabularvalignment="top">
+<column alignment="left" valignment="top" width="40text%">
+<column alignment="center" valignment="top" width="15text%">
+<column alignment="left" valignment="top" width="40text%">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+документ NoWeb
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+команда
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+текст программы
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="bottom" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Phantom HPhantom
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+usebox
+\backslash
+prog
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Phantom HPhantom
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+notangle 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset space \space{}
+\end_inset
+
+
+\begin_inset space \space{}
+\end_inset
+
+-RNOD.cpp 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset space \space{}
+\end_inset
+
+
+\begin_inset space \space{}
+\end_inset
+
+a.nw 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset space \space{}
+\end_inset
+
+
+\begin_inset space \space{}
+\end_inset
+
+>NOD.cpp
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="bottom" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Phantom HPhantom
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+usebox
+\backslash
+progg
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Документ NoWeb, и полученная программа
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "table1001"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Преведенный пример показывает исключительную лаконичность языка NoWeb.
+ Для извлечения текста программы достаточно знать имя корневого чанка (в
+ данном случае это 
+\family typewriter
+NOD.cpp
+\family default
+.
+ Особенностью системы является то, что чанк 
+\family typewriter
+NOD 
+\family default
+определяется несколько раз, при этом результат 
+\begin_inset Quotes pld
+\end_inset
+
+раскрутки
+\begin_inset Quotes prd
+\end_inset
+
+ чанка включает все его определения, объединенные последовательно.
+ Еще одной особенностью является сохранение ведущих пробелов строк, что
+ позволяется использовать систему NoWeb для создания программ на языке 
+\family typewriter
+python
+\family default
+.
+\end_layout
+
+\begin_layout Section
+Установка системы настройка её для создания программ в стиле 
+\begin_inset Quotes pld
+\end_inset
+
+грамотного программирования
+\begin_inset Quotes prd
+\end_inset
+
+ и начало работы
+\end_layout
+
+\begin_layout Subsection
+Установка и настройка системы грамотного программирования noweb  в Ubuntu
+ Linux
+\end_layout
+
+\begin_layout LyX-Code
+sudo apt-get install noweb 
+\end_layout
+
+\begin_layout Subsection
+Установка и настройка системы верстки TeX/Latex и сопутствующих программ
+ в Ubuntu Linux
+\end_layout
+
+\begin_layout LyX-Code
+sudo apt-get install texlive-full cm-super lmodern latex2html gv source-highligh
+t tidy
+\end_layout
+
+\begin_layout Subsection
+Установка и настройка текстового процессора LyX в Ubuntu Linux
+\end_layout
+
+\begin_layout LyX-Code
+sudo apt-get install lyx elyxer ttf-lyx enchant aspell-ru aspell-en aspell
+\end_layout
+
+\begin_layout Subsubsection
+Настройка среды в ОС GNU/Linux
+\end_layout
+
+\begin_layout Standard
+Меню → Инструменты → Переконфигурировать
+\end_layout
+
+\begin_layout Paragraph
+Настройка проверки правописания
+\end_layout
+
+\begin_layout Standard
+Меню → Инструменты → Настройки...
+\end_layout
+
+\begin_layout Standard
+Выбрать Настройки языка → Проверка правописания 
+\end_layout
+
+\begin_layout Standard
+spellchecker engine: Enchant
+\end_layout
+
+\begin_layout Standard
+другие языки: ru
+\end_layout
+
+\begin_layout Standard
+Выбрать Настройки языка → Язык
+\end_layout
+
+\begin_layout Standard
+Язык пользовательского интерфейса: По умолчанию
+\end_layout
+
+\begin_layout Paragraph
+Настройка документа
+\end_layout
+
+\begin_layout Standard
+Меню → Документ → Настройки...
+\end_layout
+
+\begin_layout Subparagraph
+Класс документа
+\end_layout
+
+\begin_layout Standard
+Выбрать класс документа article (Noweb).
+\end_layout
+
+\begin_layout Standard
+Поле 
+\begin_inset Quotes pld
+\end_inset
+
+Custom
+\begin_inset Quotes prd
+\end_inset
+
+ оставить пустым
+\end_layout
+
+\begin_layout Subparagraph
+Шрифты
+\end_layout
+
+\begin_layout Standard
+Для всех начертаний поставить по умолчанию.
+ 
+\end_layout
+
+\begin_layout Standard
+Выбрать размер шрифта (11pt).
+\end_layout
+
+\begin_layout Subparagraph
+Язык
+\end_layout
+
+\begin_layout Description
+Язык: выбрать 
+\begin_inset Quotes pld
+\end_inset
+
+Русский
+\begin_inset Quotes prd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+Кодировка: указать 
+\begin_inset Quotes pld
+\end_inset
+
+другой
+\begin_inset Quotes prd
+\end_inset
+
+, выбрать Юникод (utf8)
+\end_layout
+
+\begin_layout Description
+Кавычки: указать стиль кавычек отличный от 
+\begin_inset Quotes pld
+\end_inset
+
+лапок
+\begin_inset Quotes prd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subparagraph
+Поля
+\end_layout
+
+\begin_layout Standard
+Указать размеры полей 
+\end_layout
+
+\begin_layout Subparagraph
+Уменьшим размер текста программ
+\end_layout
+
+\begin_layout Standard
+В 
+\begin_inset Quotes pld
+\end_inset
+
+Преамбула Latex
+\begin_inset Quotes prd
+\end_inset
+
+ добавить
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+@ifundefined{lstset}{}{
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+noweboptions{longchunks,smallcode}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+lstset{ 
+\end_layout
+
+\begin_layout LyX-Code
+\noindent
+basicstyle=
+\backslash
+footnotesize,
+\end_layout
+
+\begin_layout LyX-Code
+breaklines=true,
+\end_layout
+
+\begin_layout LyX-Code
+breakatwhitespace=true,
+\end_layout
+
+\begin_layout LyX-Code
+resetmargins=true,
+\end_layout
+
+\begin_layout LyX-Code
+xleftmargin=3em
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+}
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+noweboptions{smallcode}
+\end_layout
+
+\begin_layout Subparagraph
+Свойства PDF
+\end_layout
+
+\begin_layout Standard
+Поставить галочку в поле 
+\begin_inset Quotes pld
+\end_inset
+
+Использовать поддержку PDF
+\begin_inset Quotes prd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Во вкладке 
+\begin_inset Quotes pld
+\end_inset
+
+Гиперссылки
+\begin_inset Quotes prd
+\end_inset
+
+ поставить галочку в поле 
+\begin_inset Quotes pld
+\end_inset
+
+разрывать ссылки через строки
+\begin_inset Quotes prd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subparagraph
+Смягчим требования к качеству переносов 
+\end_layout
+
+\begin_layout Standard
+В 
+\begin_inset Quotes pld
+\end_inset
+
+Преамбула Latex
+\begin_inset Quotes prd
+\end_inset
+
+ добавить
+\end_layout
+
+\begin_layout LyX-Code
+
+\backslash
+sloppy
+\end_layout
+
+\begin_layout Paragraph
+Настроим связь между LyX-текстом и графическим образом документа dvi
+\end_layout
+
+\begin_layout Standard
+Связь между текстовым редактором LyX и просмотрщиком xdvi значительно облегчает
+ исправление ошибок и контроль за внешним видом документа.
+ 
+\end_layout
+
+\begin_layout Standard
+Для отображения файлов dvi надо использовать программу xdvi.
+ Для этого надо в Меню → Инструменты → Настройки...→ Обработка файлов
+\begin_inset space ~
+\end_inset
+
+→
+\begin_inset space ~
+\end_inset
+
+File formats выбрать формат dvi, ввести в поле 
+\emph on
+просмотрщик
+\emph default
+ : xdvi и нажать 
+\begin_inset Quotes pld
+\end_inset
+
+сохранить
+\begin_inset Quotes prd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Кроме этого, надо изменить настройки документа, включив использование SyncTex
+ при построении dvi файла.
+ Для этого в форме Документ → Настройки → Вывод надо взвести флаг 
+\lang english
+
+\begin_inset Quotes pld
+\end_inset
+
+Synchronize with Output
+\lang russian
+
+\begin_inset Quotes prd
+\end_inset
+
+ и выбрать в выпадающем списке 
+\begin_inset Quotes pld
+\end_inset
+
+Custom macro
+\begin_inset Quotes prd
+\end_inset
+
+ значение 
+\begin_inset Quotes pld
+\end_inset
+
+
+\family typewriter
+
+\backslash
+usepackage[active]{srcltx}
+\family default
+
+\begin_inset Quotes prd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Затем надо включить прямую связь между документом LyX и просмотрщиком dvi
+ поместив в строку 
+\end_layout
+
+\begin_layout Standard
+Меню → Инструменты → Настройки...→ Вывод→ Общий→ DVI command:
+\end_layout
+
+\begin_layout Standard
+значение
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+xdvi -sourceposition "$$n: $$t" $$o
+\end_layout
+
+\begin_layout Standard
+После этого, если в панели инструментов нажата кнопка 
+\begin_inset Quotes pld
+\end_inset
+
+
+\lang english
+Enable Forward/Reverse Search
+\lang russian
+
+\begin_inset Quotes prd
+\end_inset
+
+ то, если запущен просмотрщик dvi, то можно перемещать позицию страницы
+ в просмотрщике в позицию курсора выбрав Меню → Навигация → 
+\lang english
+Forward Search
+\lang russian
+ и выполнять обратную операцию с помощью комбинации Ctrl + щелчок левой
+ кнопкой мыши.
+\end_layout
+
+\begin_layout Subsubsection
+Автоматическая сборка программы
+\end_layout
+
+\begin_layout Standard
+Программа, создаваемая с помощью LyX и NoWeb, должна компилироваться, и,
+ возможно, запускаться по мере создания.
+ Данные операции не могут эффективно выполняться вручную, и, поэтому, во-первых,
+ в документ надо включать команды для сборки, тестирования и т.п., а во-вторых
+ LyX надо настроить так, чтобы он использовал эти включенные в текст команды.
+\end_layout
+
+\begin_layout Paragraph
+Стартовый скрипт компиляции
+\end_layout
+
+\begin_layout Standard
+Следующий текст 
+\end_layout
+
+\begin_layout LyX-Code
+#!/bin/bash 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+export PROJ_DIR="$1"  # скрипт сборки сможет обращаться к данным переменным
+ 
+\end_layout
+
+\begin_layout LyX-Code
+export NOWEB_SOURCE="$2"
+\end_layout
+
+\begin_layout LyX-Code
+export LYX_TMP="$3"
+\end_layout
+
+\begin_layout LyX-Code
+export NW="${LYX_TMP}/${NOWEB_SOURCE}"
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+export ERR_FILE="${NW}.make_err" # сообщения о ошибках запишем в данный файл
+\end_layout
+
+\begin_layout LyX-Code
+B="${NW}.build-script" # скрипт сборки
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+notangle -Rbuild-script "${NW}" >"$B" 2>"${ERR_FILE}"
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+/bin/bash "$B" >"${ERR_FILE}" 2>&1
+\end_layout
+
+\begin_layout Standard
+надо поместить в файл $HOME/bin/build-script сделав его исполняемым с помощью
+ команды:
+\end_layout
+
+\begin_layout LyX-Code
+chmod +x $HOME/bin/build-script
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+Данный скрипт инициализирует переменные окружения 
+\family typewriter
+:
+\begin_inset Newline newline
+\end_inset
+
+PROJ_DIR
+\family default
+ --- с именем головной директории проекта
+\begin_inset Newline newline
+\end_inset
+
+NOWEB_SOURCE --- с именем noweb-файла, полученного из документа LyX
+\begin_inset Newline newline
+\end_inset
+
+LYX_TMP --- имя временной директории, в которой размещен документ LyX и,
+ возможно, другие временные файлы
+\begin_inset Newline newline
+\end_inset
+
+NW --- абсолютное имя NoWeb файла.
+\begin_inset Newline newline
+\end_inset
+
+ERR_FILE --- имя файла с сообщениями о ошибках компиляции;
+\end_layout
+
+\begin_layout Standard
+извлекает из документа скрипт сборки/тестирования и запускает его.
+ При этом сообщения времени компиляции сохраняются в файле с расширением
+ 
+\family typewriter
+.make_err
+\family default
+ .
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Для того, чтобы LyX стал использовать данный скрипт надо добавить в список
+ конверторов (Меню → Инструменты → Настройки → Обработка файлов → Конверторы)
+ конветор из 
+\emph on
+NoWeb
+\emph default
+ в 
+\emph on
+Программа
+\emph default
+ указав в поле ввода 
+\emph on
+Преобразователь 
+\end_layout
+
+\begin_layout LyX-Code
+
+\family typewriter
+build-script $$r $$i $$p
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Теперь мы можем создавая программу указывать команды, выполнить которые
+ нужно для сборки приложения, его запуска, проверки и т.п.
+\end_layout
+
+\begin_layout Standard
+Приведем пример.
+\end_layout
+
+\begin_layout Subparagraph
+Пример использования сборки программы.
+\end_layout
+
+\begin_layout Standard
+Можно организовать извлечение текста файла a.cpp из документа и его компиляцию
+ с помощью компилятора gcc
+\end_layout
+
+\begin_layout Scrap
+
+<<a.cpp>>=
+\end_layout
+
+\begin_layout Scrap
+
+#include <stdio.h>
+\end_layout
+
+\begin_layout Scrap
+
+#include <math.h>
+\end_layout
+
+\begin_layout Scrap
+
+\end_layout
+
+\begin_layout Scrap
+
+main(){
+\end_layout
+
+\begin_layout Scrap
+
+  printf( "###########################" );   // в этой строке ошибка (умышленная
+а)
+\end_layout
+
+\begin_layout Scrap
+
+  printf( "<<Сообщение>>
+\backslash
+n" );
+\end_layout
+
+\begin_layout Scrap
+
+  printf( "###########################
+\backslash
+n" );
+\end_layout
+
+\begin_layout Scrap
+
+  return 0;
+\end_layout
+
+\begin_layout Scrap
+
+}
+\end_layout
+
+\begin_layout Scrap
+
+@
+\end_layout
+
+\begin_layout Scrap
+
+\end_layout
+
+\begin_layout Scrap
+
+<<Сообщение>>=
+\end_layout
+
+\begin_layout Scrap
+
+Hello world
+\end_layout
+
+\begin_layout Scrap
+
+@
+\end_layout
+
+\begin_layout Scrap
+
+\end_layout
+
+\begin_layout Standard
+написав в документе
+\end_layout
+
+\begin_layout Scrap
+
+<<build-script>>=
+\end_layout
+
+\begin_layout Scrap
+
+#!/bin/bash
+\end_layout
+
+\begin_layout Scrap
+
+if [ -f a.out ] ; then rm a.out ; fi;
+\end_layout
+
+\begin_layout Scrap
+
+# извлекаем программу из документа
+\end_layout
+
+\begin_layout Scrap
+
+#notangle -Ra.cpp "${LYX_TMP}/${NOWEB_SOURCE}" >a.cpp
+\end_layout
+
+\begin_layout Scrap
+
+LNW_notangle.sh a.cpp  # Эта строка будет использована позднее
+\end_layout
+
+\begin_layout Scrap
+
+# компилируем её
+\end_layout
+
+\begin_layout Scrap
+
+g++  a.cpp
+\end_layout
+
+\begin_layout Scrap
+
+# компиляция завершена
+\end_layout
+
+\begin_layout Scrap
+
+@
+\end_layout
+
+\begin_layout Standard
+Если программа успешно откомпилирована, можно её автоматически запустить.
+ 
+\end_layout
+
+\begin_layout Scrap
+
+<<build-script>>=
+\end_layout
+
+\begin_layout Scrap
+
+# запускаем программу
+\end_layout
+
+\begin_layout Scrap
+
+#./a.out
+\end_layout
+
+\begin_layout Scrap
+
+@
+\end_layout
+
+\begin_layout Subsubsection
+Ошибки компиляции
+\end_layout
+
+\begin_layout Standard
+Компилятор выводит на экран сообщения о ошибках, используя для этого канал
+ ошибок (
+\family typewriter
+stderr
+\family default
+).
+\end_layout
+
+\begin_layout Standard
+Скрипт 
+\family typewriter
+build-script
+\family default
+ записывает сообщения о ошибках в файл с расширением 
+\family typewriter
+make_err
+\family default
+.
+ При этом указываются номера строк, в которых обнаружены ошибки, но это
+ строки не документа lyx а файла с текстом программы (например 
+\family typewriter
+a.cpp
+\family default
+).
+ Формат вывода сообщения о ошибках определяется компилятором (в данном случае
+ gcc).
+\end_layout
+
+\begin_layout Standard
+Для того, чтобы LyX мог помочь в локализации ошибок выход программы должен
+ быть представлен в формате TeX:
+\end_layout
+
+\begin_layout LyX-Code
+! <Краткое сообщение о ошибке>
+\end_layout
+
+\begin_layout LyX-Code
+l.200 <начало строки с ошибкой>
+\end_layout
+
+\begin_layout LyX-Code
+                               <конец строки с ошибкой>
+\end_layout
+
+\begin_layout LyX-Code
+<многострочное описание ошибки>
+\end_layout
+
+\begin_layout LyX-Code
+<пустая строка>
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Standard
+где 
+\family typewriter
+200
+\family default
+ --- номер строки в документе NoWeb.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Следовательно, задача заключается в том, чтобы 
+\end_layout
+
+\begin_layout Itemize
+связать номера строк программы на языке программирования с номерами строк
+ документа NoWeb, 
+\end_layout
+
+\begin_layout Itemize
+преобразовать сообщения о ошибках к формату TeX и 
+\end_layout
+
+\begin_layout Itemize
+передать их в программу LyX.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Cвязать номера строк программы на языке программирования с номерами строк
+ документа NoWeb можно во время извлечения текста программы из документа
+ NoWeb, если извлечение делать не с помощью программы notangle а с помощью
+ скрипта-оболочки 
+\family typewriter
+LNW_notangle.sh
+\family default
+ (он размещен в директории 
+\family typewriter
+scripts
+\family default
+).
+ 
+\end_layout
+
+\begin_layout Standard
+Скрипт 
+\family typewriter
+LNW_notangle.sh
+\family default
+ в свою очередь дважды использует notangle для построения текста программы,
+ один раз дополняя исходный текст специальными метками (
+\family typewriter
+-L'#line %L "%F"%N'
+\family default
+).
+ В результате работы он формирует текст программы (например файл 
+\family typewriter
+a.cpp
+\family default
+ ) и файл связывающий номера строк NoWeb файла с номерами строк файла программы.
+ Данный файл имеет расширение 
+\family typewriter
+.nwindex
+\family default
+ .
+\end_layout
+
+\begin_layout Standard
+Скрипты 
+\family typewriter
+LNW_notangle.sh LNW_make_nwindex.py LNW_del_mix_nl.py
+\family default
+, тексты которых можно найти в директории 
+\family typewriter
+scripts,
+\family default
+ необходимо поместить в каталог 
+\family typewriter
+$HOME/bin/
+\family default
+ и сделать исполнимыми 
+\end_layout
+
+\begin_layout LyX-Code
+chmod +x 
+\family typewriter
+$HOME/bin/LNW_notangle.sh $HOME/bin/LNW_make_nwindex.py
+\begin_inset Newline linebreak
+\end_inset
+
+
+\begin_inset space \hspace*{}
+\length 1cm
+\end_inset
+
+$HOME/bin/LNW_del_mix_nl.py
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+Преобразовать сообщения о ошибках, к формату TeX и произвести подмену номеров
+ строк можно с помощью скрипта 
+\family typewriter
+LNW-listerrors.
+ 
+\family default
+(Он тоже находится в директории 
+\family typewriter
+scripts
+\family default
+).
+ Указать LyX, что нужно использовать данный скрипт можно указав в поле ввода
+ 
+\emph on
+Дополнительно
+\emph default
+ конвертора из 
+\emph on
+NoWeb
+\emph default
+ в 
+\emph on
+Программа
+\emph default
+ (Меню → Инструменты → Настройки → Обработка файлов → Конверторы)
+\end_layout
+
+\begin_layout LyX-Code
+
+\family typewriter
+parselog=LNW-listerrors
+\end_layout
+
+\begin_layout Standard
+.
+\end_layout
+
+\begin_layout Standard
+Скрипт 
+\family typewriter
+LNW-listerrors
+\family default
+ использует программу 
+\family typewriter
+LNW_parse_errors.py
+\family default
+ написанную на языке python для преобразования текста с сообщением об ошибках.
+ (текст программы находится в директории 
+\family typewriter
+scripts
+\family default
+.
+ Его надо скопировать в 
+\family typewriter
+$HOME/bin
+\family default
+ и сделать исполняемым).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Теперь, использовать для извлечения текстов программ 
+\family typewriter
+LNW_notangle.sh
+\family default
+, то-есть в вышеприведенном примере с компиляцией 
+\family typewriter
+a.cpp
+\family default
+ заменить
+\begin_inset Newline newline
+\end_inset
+
+
+\family typewriter
+
+\begin_inset space \hspace*{}
+\length 1cm
+\end_inset
+
+notangle -Ra.cpp "${LYX_TMP}/${NOWEB_SOURCE}" >a.cpp
+\begin_inset Newline linebreak
+\end_inset
+
+
+\family default
+на
+\begin_inset Newline linebreak
+\end_inset
+
+
+\family typewriter
+
+\begin_inset space \hspace*{}
+\length 1cm
+\end_inset
+
+LNW_notangle.sh a.cpp
+\begin_inset Newline linebreak
+\end_inset
+
+
+\family default
+то LyX автоматически укажет на обнаруженные в ходе компиляции синтаксические
+ ошибки.
+\end_layout
+
+\begin_layout Subsubsection
+Ошибки извлечения текста документации
+\end_layout
+
+\begin_layout Standard
+Иногда noweb не может извлечь документацию к программе из текста (сгенерировать
+ файл TeX).
+\end_layout
+
+\begin_layout Standard
+Обычно это связано с тем, что пропущены ограничители начала/конца блоков
+ с текстом программы, опущены символы 
+\family typewriter
+=
+\family default
+ и т.п.
+\end_layout
+
+\begin_layout Standard
+Для того, чтобы локализовать ошибки, достаточно преобразовать сообщения
+ о ошибках к формату TeX.
+\end_layout
+
+\begin_layout Standard
+Для этого были написаны два скрипта.
+ Один вызывает программу 
+\family typewriter
+noweave 
+\family default
+сохраняя сообщения о ошибках, а второй --- преобразовывает сохраненные сообщения
+ к формату TeX.
+\end_layout
+
+\begin_layout Standard
+Для того, чтобы данные скрипты начали использоваться надо 
+\end_layout
+
+\begin_layout Itemize
+сохранить скрипты 
+\family typewriter
+LNW_noweave.sh
+\family default
+ и 
+\family typewriter
+LNW_noweave_parse_errors.sh
+\family default
+ в директории 
+\family typewriter
+$HOME/bin 
+\family default
+(их можно взять в директории 
+\family typewriter
+scripts
+\family default
+) и сделать их исполнимыми 
+\begin_inset Newline newline
+\end_inset
+
+chmod +x 
+\family typewriter
+$HOME/bin/LNW_noweave.sh
+\family default
+ 
+\family typewriter
+$HOME/bin/LNW_noweave_parse_errors.sh
+\end_layout
+
+\begin_layout Itemize
+настроить конверторы из 
+\emph on
+NoWeb
+\emph default
+ в 
+\emph on
+LaTeX (pdflatex)
+\emph default
+и в
+\emph on
+ LaTeX (plain) 
+\emph default
+указав в поле 
+\emph on
+конвертер
+\emph default
+ 
+\family typewriter
+LNW_noweave.sh $$i $$o
+\family default
+
+\begin_inset Newline newline
+\end_inset
+
+а в поле 
+\emph on
+Преобразователь ----
+\begin_inset Newline newline
+\end_inset
+
+
+\family typewriter
+\emph default
+parselog=LNW_noweave_parse_errors.sh
+\end_layout
+
+\begin_layout Subsubsection
+LyX и система контроля версий SVN
+\end_layout
+
+\begin_layout Standard
+Добавляем новый проект в репозиторий svn (созданный ранее командой 
+\family typewriter
+svnadmin create /path/to/project
+\family default
+)
+\end_layout
+
+\begin_layout LyX-Code
+svn import .
+  
+\backslash
+
+\begin_inset Newline newline
+\end_inset
+
+
+\family typewriter
+
+\begin_inset space \hspace*{}
+\length 1cm
+\end_inset
+
+
+\family default
+svn+ssh://SD@icecube.satellite.dvo.ru/home/SD/Runx/svn/repos/new_project 
+\backslash
+
+\begin_inset Newline newline
+\end_inset
+
+
+\family typewriter
+
+\begin_inset space \hspace*{}
+\length 1cm
+\end_inset
+
+
+\family default
+-m "First Import" 
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Получение начальной версии на свой компьютер (создание локальной версии)
+ в текущую директорию 
+\end_layout
+
+\begin_layout LyX-Code
+svn checkout 
+\backslash
+
+\begin_inset Newline newline
+\end_inset
+
+
+\family typewriter
+
+\begin_inset space \hspace*{}
+\length 1cm
+\end_inset
+
+svn+ssh://SD@icecube.satellite.dvo.ru/home/SD/Runx/svn/repos/new_project
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Обновить до текущей рабочей версии 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+svn update
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Работа с программой LyX для набора текстов
+\end_layout
+
+\begin_layout Standard
+Работа с программой LyX для набора обычных текстов (включающих оглавление,
+ изображения и таблицы) не является сложной.
+ Использование её позволяет достичь высокого качества набора, хотя для достижени
+я эксклюзивных результатов придется обратится к специалистам по системе
+ TeX и литературе.
+ При наборе текста в LyX (как и в некоторых других программах) лучше не
+ концентрироваться на внешнем виде документа, а, вместо этого, сконцентрироватьс
+я на его структуре.
+ Как правило выбор правильной структуры гарантирует хороший внешний вид,
+ который можно улучшить позднее, после того как содержание документа будет
+ полностью готово.
+\end_layout
+
+\begin_layout Standard
+Прекрасным введением в работу является переведенный Максимом Дзюманенко
+ на русский язык самоучитель, включенный в поставку программы.
+\end_layout
+
+\begin_layout Section
+Примеры создания программы в системе LyX/NoWeb
+\end_layout
+
+\begin_layout Subsection
+Программа выводящая простые числа от a до b
+\end_layout
+
+\begin_layout Standard
+Программа вывода простых чисел организована следующим образом
+\end_layout
+
+\begin_layout Scrap
+
+<<ядро программы>>=
+\end_layout
+
+\begin_layout Scrap
+
+for( int i = a; i <= b; i++ ){
+\end_layout
+
+\begin_layout Scrap
+
+   if( <<i - простое число>> ){
+\end_layout
+
+\begin_layout Scrap
+
+      printf( "%d - is prime number
+\backslash
+n", i );
+\end_layout
+
+\begin_layout Scrap
+
+   }
+\end_layout
+
+\begin_layout Scrap
+
+}
+\end_layout
+
+\begin_layout Scrap
+
+@
+\end_layout
+
+\begin_layout Standard
+Проверку того, является ли число простым, можно вынести в отдельную функцию:
+\end_layout
+
+\begin_layout Scrap
+
+<<функции>>=
+\end_layout
+
+\begin_layout Scrap
+
+int is_prime( int n );
+\end_layout
+
+\begin_layout Scrap
+
+@
+\end_layout
+
+\begin_layout Standard
+Тогда проверка будет выглядеть следующим образом:
+\end_layout
+
+\begin_layout Scrap
+
+<<i - простое число>>=
+\end_layout
+
+\begin_layout Scrap
+
+   is_prime(i)
+\end_layout
+
+\begin_layout Scrap
+
+@
+\end_layout
+
+\begin_layout Standard
+Определим функцию проверки, используя перебор, при этом должны нассматриваться
+ делители от 2 до 
+\begin_inset Formula $\sqrt{{n}}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Scrap
+
+<<опр функций>>=
+\end_layout
+
+\begin_layout Scrap
+
+int is_prime( int n ){
+\end_layout
+
+\begin_layout Scrap
+
+   for( int j = 2; j < n; j++ ){
+\end_layout
+
+\begin_layout Scrap
+
+      if( n % j == 0 ) return 0;
+\end_layout
+
+\begin_layout Scrap
+
+   }
+\end_layout
+
+\begin_layout Scrap
+
+   return 1;
+\end_layout
+
+\begin_layout Scrap
+
+}
+\end_layout
+
+\begin_layout Scrap
+
+@
+\end_layout
+
+\begin_layout Standard
+Соберем программу в файл 
+\end_layout
+
+\begin_layout Scrap
+
+<<prime.c>>=
+\end_layout
+
+\begin_layout Scrap
+
+#include <stdio.h>
+\end_layout
+
+\begin_layout Scrap
+
+\end_layout
+
+\begin_layout Scrap
+
+<<функции>>
+\end_layout
+
+\begin_layout Scrap
+
+<<опр функций>>
+\end_layout
+
+\begin_layout Scrap
+
+\end_layout
+
+\begin_layout Scrap
+
+\end_layout
+
+\begin_layout Scrap
+
+main(){
+\end_layout
+
+\begin_layout Scrap
+
+   int a = 2;
+\end_layout
+
+\begin_layout Scrap
+
+   int b = 20;
+\end_layout
+
+\begin_layout Scrap
+
+   <<ядро программы>>
+\end_layout
+
+\begin_layout Scrap
+
+}
+\end_layout
+
+\begin_layout Scrap
+
+@
+\end_layout
+
+\begin_layout Standard
+Компиляция и запуск программы:
+\end_layout
+
+\begin_layout Scrap
+
+<<build-script>>=
+\end_layout
+
+\begin_layout Scrap
+
+LNW_notangle.sh prime.c
+\end_layout
+
+\begin_layout Scrap
+
+# компилируем её
+\end_layout
+
+\begin_layout Scrap
+
+g++  prime.c -o prime
+\end_layout
+
+\begin_layout Scrap
+
+./prime
+\end_layout
+
+\begin_layout Scrap
+
+@
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Поиск оптимальной позиции начала выброса в длинных нардах
+\end_layout
+
+\begin_layout Subsubsection
+Постановка задачи
+\end_layout
+
+\begin_layout Standard
+В игре 
+\begin_inset Quotes pld
+\end_inset
+
+длинные нарды
+\begin_inset Quotes prd
+\end_inset
+
+ играющие должны сначала вывести свои 15 фишек на последние 6 позиций игрового
+ поля, в 
+\begin_inset Quotes pld
+\end_inset
+
+дом
+\begin_inset Quotes prd
+\end_inset
+
+, а затем 
+\begin_inset Quotes pld
+\end_inset
+
+выбросить
+\begin_inset Quotes prd
+\end_inset
+
+ их с доски.
+ Тот, кто выбросит фишки первым --- выигрывает.
+\end_layout
+
+\begin_layout Standard
+Ход, который может сделать игрок определяется случайным образом, с помощью
+ двух костей.
+ Если игроку выпали, например, 3 и 4, то игрок может сходить на 3 и 4, а
+ может на 4 и 3.
+ Если выпадает два одинаковых значения --- 
+\begin_inset Quotes pld
+\end_inset
+
+дубль
+\begin_inset Quotes prd
+\end_inset
+
+, пример 3 3, то игрок ходит не два а четыре раза --- 3, 3, 3, 3.ru
+\end_layout
+
+\begin_layout Standard
+Пронумеруем позиции игрового поля числами с 5 до 0.
+ Пусть на каждой позиции 
+\begin_inset Formula $a_{i}$
+\end_inset
+
+ фишек (в начале игры 
+\begin_inset Formula $\sum a_{i}=15$
+\end_inset
+
+).
+ Тогда одиночный ход на 
+\family typewriter
+
+\begin_inset Formula $L$
+\end_inset
+
+ 
+\family default
+позиций
+\family typewriter
+ (
+\begin_inset Formula $L\in[1,6]$
+\end_inset
+
+)
+\family default
+ это перенос фишки в с позиции 
+\begin_inset Formula $i$
+\end_inset
+
+ на позицию 
+\begin_inset Formula $j=i-L+1$
+\end_inset
+
+.
+ Если эта позиция находится за пределами доски (
+\begin_inset Formula $j<0$
+\end_inset
+
+) то фишка выбрасывается если выполняется одно из двух условий: 
+\begin_inset Formula $j=-1$
+\end_inset
+
+ 
+\begin_inset space ~
+\end_inset
+
+или 
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\sum_{j=(i+1)\ldots5}a_{i}=0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Вопрос, какое среднее число бросков потребуется игроку, чтобы 
+\begin_inset Quotes pld
+\end_inset
+
+выбросить
+\begin_inset Quotes prd
+\end_inset
+
+ все свои фишки с доски?
+\end_layout
+
+\begin_layout Standard
+Какое положение фишек является оптимальным для начала выброса? 
+\end_layout
+
+\begin_layout Subsubsection
+Схема решения
+\end_layout
+
+\begin_layout Standard
+Пусть есть позиция, заданная в виде массива из шести элементов, для которой
+ мы должны определить среднее количество оставшихся бросков.
+\end_layout
+
+\begin_layout Standard
+Если позиция пустая, то ответ очевиден --- ноль.
+\end_layout
+
+\begin_layout Standard
+Если позиция не пустая мы должны просмотреть комбинации костей, которые
+ могут выпасть, для каждой из них найти лучшие ходы фишек.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+S(pos)=\begin{cases}
+pos=0:\,\,\, & 0\\
+pos\neq0:\,\,\, & \frac{1}{36}\sum_{k_{1}\in[1,6],\, k_{2}\in[1,6]}\left(1+\min_{step\in MS(pos,k_{1,}k_{2})}S\left(Next\left(pos,step\right)\right)\right)
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+здесь 
+\begin_inset Formula $MS$
+\end_inset
+
+ --- множество возможных ходов из позиции 
+\begin_inset Formula $pos$
+\end_inset
+
+ если выпали кости 
+\begin_inset Formula $k_{1},k_{2}$
+\end_inset
+
+, а 
+\begin_inset Formula $Next$
+\end_inset
+
+ --- позиция в которую переходит игра после шага 
+\begin_inset Formula $step$
+\end_inset
+
+ из позиции 
+\begin_inset Formula $pos$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Данную задачу можно решить численно с помощью рекурсивного вычисления значения
+ функции 
+\begin_inset Formula $S(pos)$
+\end_inset
+
+.
+ В ходе решения придется многократно находить значения функции для одних
+ и тех-же позиция, поэтому необходимо сохранять уже найденные решения в
+ словаре.
+\end_layout
+
+\begin_layout Subsubsection
+Текст программы
+\end_layout
+
+\begin_layout Standard
+Программу напишем на языке 
+\family typewriter
+python
+\family default
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Позицию будем описывать как массив из шести элементов, по числу позиций
+ 
+\begin_inset Quotes pld
+\end_inset
+
+дома
+\begin_inset Quotes prd
+\end_inset
+
+.
+ В элементе массива будет содержаться число фишек, находящихся в данной
+ позиции или ноль, если позиция пуста.
+\end_layout
+
+\begin_layout Standard
+Тогда функция 
+\family typewriter
+S
+\family default
+ будет выглядеть следующим образом:
+\end_layout
+
+\begin_layout Scrap
+
+<<пример.
+ функции>>=
+\end_layout
+
+\begin_layout Scrap
+
+slov = {}
+\end_layout
+
+\begin_layout Scrap
+
+def S(pos):
+\end_layout
+
+\begin_layout Scrap
+
+   global slov
+\end_layout
+
+\begin_layout Scrap
+
+   if <<pos - конечная позиция>>: return 0
+\end_layout
+
+\begin_layout Scrap
+
+   h = <<индекс позиции pos в словаре>>
+\end_layout
+
+\begin_layout Scrap
+
+   if h in slov : return slov[h]
+\end_layout
+
+\begin_layout Scrap
+
+   res = 0.0;
+\end_layout
+
+\begin_layout Scrap
+
+   for k1 in [1,2,3,4,5,6] :
+\end_layout
+
+\begin_layout Scrap
+
+     for k2 in [1,2,3,4,5,6] :
+\end_layout
+
+\begin_layout Scrap
+
+        pos2 = <<результат лучшего хода из позиции pos, для броска k1,k2>>
+\end_layout
+
+\begin_layout Scrap
+
+        # print 'best action:', pos, k1, k2, pos2
+\end_layout
+
+\begin_layout Scrap
+
+        res += S(pos2) + 1
+\end_layout
+
+\begin_layout Scrap
+
+   res = res / 36.;
+\end_layout
+
+\begin_layout Scrap
+
+   slov[h] = res
+\end_layout
+
+\begin_layout Scrap
+
+   return res
+\end_layout
+
+\begin_layout Scrap
+
+@
+\end_layout
+
+\begin_layout Standard
+Индексы для кеша позиций должны быть уникальными целыми числами, при этом
+ на одной позиции не может находиться более 15 фишек одновременно.
+\end_layout
+
+\begin_layout Standard
+Поэтому:
+\end_layout
+
+\begin_layout Scrap
+
+<<индекс позиции pos в словаре>>=
+\end_layout
+
+\begin_layout Scrap
+
+sum( pos[i]*(16**i) for i in [0,1,2,3,4,5] )
+\end_layout
+
+\begin_layout Scrap
+
+@
+\end_layout
+
+\begin_layout Standard
+А проверку того, является ли позиция конечной целью игры можно выполнить
+ так:
+\end_layout
+
+\begin_layout Scrap
+
+<<pos - конечная позиция>>=
+\end_layout
+
+\begin_layout Scrap
+
+0 == sum( pos )
+\end_layout
+
+\begin_layout Scrap
+
+@
+\end_layout
+
+\begin_layout Standard
+Перейдем к определению функции 
+\family typewriter
+\lang english
+SM
+\family default
+\lang russian
+, которая должна возвратить список 
+\family typewriter
+позиций
+\family default
+ в которые могут перейти фишки если на костях выпало
+\family typewriter
+ 
+\family default
+k1, 
+\family typewriter
+k2
+\family default
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Рассмотрим сначала более простую задачу, при которой надо рассмотреть бросок
+ не пары, а одной кости.
+ При этом если бросок производится из конечной позиции игры, мы конечную
+ позицию и возвращаем, считая что игра закончилась при игре предыдущей костью.
+\end_layout
+
+\begin_layout Scrap
+
+<<пример.
+ функции>>=
+\end_layout
+
+\begin_layout Scrap
+
+def SM1( pos, k ):
+\end_layout
+
+\begin_layout Scrap
+
+    """список позиций, в которые может перейти игра из позиции pos если
+ выпало k"""
+\end_layout
+
+\begin_layout Scrap
+
+    # заносим список позиций, в которые может перейти игра, в res
+\end_layout
+
+\begin_layout Scrap
+
+    if <<pos - конечная позиция>> : 
+\end_layout
+
+\begin_layout Scrap
+
+       # если pos - конечная позиция то игра закончена
+\end_layout
+
+\begin_layout Scrap
+
+       #  возвращаем конечную позицию
+\end_layout
+
+\begin_layout Scrap
+
+       yield pos
+\end_layout
+
+\begin_layout Scrap
+
+       return
+\end_layout
+
+\begin_layout Scrap
+
+    else :
+\end_layout
+
+\begin_layout Scrap
+
+       for i in [0,1,2,3,4,5]:
+\end_layout
+
+\begin_layout Scrap
+
+          if pos[i] == 0: continue
+\end_layout
+
+\begin_layout Scrap
+
+          pos2 = pos[:]
+\end_layout
+
+\begin_layout Scrap
+
+          pos2[i] -= 1
+\end_layout
+
+\begin_layout Scrap
+
+          j = i - k
+\end_layout
+
+\begin_layout Scrap
+
+          if j >= 0 : 
+\end_layout
+
+\begin_layout Scrap
+
+              pos2[j] += 1 # обычный ход
+\end_layout
+
+\begin_layout Scrap
+
+          else :
+\end_layout
+
+\begin_layout Scrap
+
+              # выброс 
+\end_layout
+
+\begin_layout Scrap
+
+              if j != -1 :
+\end_layout
+
+\begin_layout Scrap
+
+                  # позиция фишки не соответствует выпавшему камню,
+\end_layout
+
+\begin_layout Scrap
+
+                  # в этом случае выброс производится только с крайней позиции
+\end_layout
+
+\begin_layout Scrap
+
+                  if sum( pos[i+1:] ) != 0:
+\end_layout
+
+\begin_layout Scrap
+
+                      continue  # позиция не является крайней
+\end_layout
+
+\begin_layout Scrap
+
+          yield pos2   # возвращаем результат
+\end_layout
+
+\begin_layout Scrap
+
+@
+\end_layout
+
+\begin_layout Standard
+Тогда полный список позиций можно получить следующим образом
+\end_layout
+
+\begin_layout Scrap
+
+<<пример.
+ функции>>=
+\end_layout
+
+\begin_layout Scrap
+
+def SM( pos, k1, k2 ):
+\end_layout
+
+\begin_layout Scrap
+
+    """список позиций, в которые может перейти игра 
+\end_layout
+
+\begin_layout Scrap
+
+       из позиции pos если выпало k1 и k2 (с учетом дублей)""" 
+\end_layout
+
+\begin_layout Scrap
+
+    res = []
+\end_layout
+
+\begin_layout Scrap
+
+    if k1 != k2 : # не выпал дубль
+\end_layout
+
+\begin_layout Scrap
+
+       for pos1 in SM1( pos, k1 ):
+\end_layout
+
+\begin_layout Scrap
+
+          for pos2 in SM1( pos1, k2 ):
+\end_layout
+
+\begin_layout Scrap
+
+              res += [pos2]
+\end_layout
+
+\begin_layout Scrap
+
+       for pos1 in SM1( pos, k2 ):
+\end_layout
+
+\begin_layout Scrap
+
+          for pos2 in SM1( pos1, k1 ):
+\end_layout
+
+\begin_layout Scrap
+
+              res += [pos2]
+\end_layout
+
+\begin_layout Scrap
+
+    else : # выпал дубль
+\end_layout
+
+\begin_layout Scrap
+
+      for pos1 in SM1( pos, k1 ):
+\end_layout
+
+\begin_layout Scrap
+
+        for pos2 in SM1( pos1, k1 ):
+\end_layout
+
+\begin_layout Scrap
+
+          for pos3 in SM1( pos2, k1 ):
+\end_layout
+
+\begin_layout Scrap
+
+            for pos4 in SM1( pos3, k1 ):
+\end_layout
+
+\begin_layout Scrap
+
+               res += [pos4]
+\end_layout
+
+\begin_layout Scrap
+
+\end_layout
+
+\begin_layout Scrap
+
+    # удаляем дубликаты конечных позиций
+\end_layout
+
+\begin_layout Scrap
+
+    res.sort()
+\end_layout
+
+\begin_layout Scrap
+
+    res2 = []
+\end_layout
+
+\begin_layout Scrap
+
+    i = 0
+\end_layout
+
+\begin_layout Scrap
+
+    for r in res:
+\end_layout
+
+\begin_layout Scrap
+
+      if i == 0 or (i>0 and res[i] != res[i-1] ):
+\end_layout
+
+\begin_layout Scrap
+
+         res2 += [r]
+\end_layout
+
+\begin_layout Scrap
+
+      i += 1
+\end_layout
+
+\begin_layout Scrap
+
+    return  res2
+\end_layout
+
+\begin_layout Scrap
+
+@
+\end_layout
+
+\begin_layout Standard
+Вычисление значения 
+\family typewriter
+\emph on
+результат лучшего хода из позиции pos, для броска k1, k2
+\family default
+\emph default
+ лучше вынести в отдельную функцию.
+ Тогда
+\end_layout
+
+\begin_layout Scrap
+
+<<результат лучшего хода из позиции pos, для броска k1,k2>>=
+\end_layout
+
+\begin_layout Scrap
+
+best_target_for( pos, k1, k2 )
+\end_layout
+
+\begin_layout Scrap
+
+@
+\end_layout
+
+\begin_layout Scrap
+
+\end_layout
+
+\begin_layout Scrap
+
+<<пример.
+ функции>>=
+\end_layout
+
+\begin_layout Scrap
+
+\end_layout
+
+\begin_layout Scrap
+
+def best_target_for( pos, k1, k2 ):
+\end_layout
+
+\begin_layout Scrap
+
+    best_S = 9999;
+\end_layout
+
+\begin_layout Scrap
+
+    best_pos = [];
+\end_layout
+
+\begin_layout Scrap
+
+    for pos2 in SM( pos, k1, k2 ):
+\end_layout
+
+\begin_layout Scrap
+
+       a = S(pos2)
+\end_layout
+
+\begin_layout Scrap
+
+       if a < best_S :
+\end_layout
+
+\begin_layout Scrap
+
+           best_S = a
+\end_layout
+
+\begin_layout Scrap
+
+           best_pos = pos2[:]
+\end_layout
+
+\begin_layout Scrap
+
+    return best_pos
+\end_layout
+
+\begin_layout Scrap
+
+@ 
+\end_layout
+
+\begin_layout Standard
+Получим ответ на вопрос, какое среднее количество бросков надо сделать игроку
+ из указанной позиции для завершения игры.
+\end_layout
+
+\begin_layout Scrap
+
+<<ответ на вопрос 1>>=
+\end_layout
+
+\begin_layout Scrap
+
+a = [0,1,10,1,3,0] # начальная позиция игры
+\end_layout
+
+\begin_layout Scrap
+
+res = S(a)
+\end_layout
+
+\begin_layout Scrap
+
+print "Для позиции " + repr(a),
+\end_layout
+
+\begin_layout Scrap
+
+print     "Среднее количество бросков до завершения игры равно " + str(res)
+\end_layout
+
+\begin_layout Scrap
+
+@
+\end_layout
+
+\begin_layout Standard
+Для ответа на второй вопрос (о оптимальной позиции начала выброса) сначала
+ надо получить набор всех начальных позиций.
+\end_layout
+
+\begin_layout Scrap
+
+<<start
+\backslash
+_pos <- набор начальных позиций >>=
+\end_layout
+
+\begin_layout Scrap
+
+startpos = []
+\end_layout
+
+\begin_layout Scrap
+
+for p1 in range(0, 15+1):
+\end_layout
+
+\begin_layout Scrap
+
+  for p2 in range(p1, 15+1):
+\end_layout
+
+\begin_layout Scrap
+
+    for p3 in range(p2, 15+1):
+\end_layout
+
+\begin_layout Scrap
+
+      for p4 in range(p3, 15+1):
+\end_layout
+
+\begin_layout Scrap
+
+        for p5 in range(p4, 15+1):
+\end_layout
+
+\begin_layout Scrap
+
+          pos = [p1, p2-p1, p3-p2, p4-p3, p5-p4, 15-p5 ]
+\end_layout
+
+\begin_layout Scrap
+
+          start_pos += [pos]
+\end_layout
+
+\begin_layout Scrap
+
+@
+\end_layout
+
+\begin_layout Standard
+После этого мы может получить ответ на второй вопрос, учитывая про этом
+ среднее количество бросков, которое дополнительно потребовалось игроку,
+ чтобы занять начальную позицию.
+\end_layout
+
+\begin_layout Scrap
+
+<<ответ на вопрос 2>>=
+\end_layout
+
+\begin_layout Scrap
+
+<<start
+\backslash
+_pos <- набор начальных позиций >>
+\end_layout
+
+\begin_layout Scrap
+
+for pos in start_pos:
+\end_layout
+
+\begin_layout Scrap
+
+    rolls_to_start_pos = (
+\end_layout
+
+\begin_layout Scrap
+
+         (pos[0]*5+pos[1]*4+pos[2]*3+pos[3]*2+pos[4]*1+pos[5]*0)/8.166666666
+\end_layout
+
+\begin_layout Scrap
+
+                         )
+\end_layout
+
+\begin_layout Scrap
+
+    rolls_to_exit = S(pos)
+\end_layout
+
+\begin_layout Scrap
+
+    full_rolls = rolls_to_exit + rolls_to_start_pos
+\end_layout
+
+\begin_layout Scrap
+
+    print "%6.3f" % full_rolls, "%25s" % repr(pos) ,
+\end_layout
+
+\begin_layout Scrap
+
+    print  "%6.3f" % rolls_to_start_pos, "%6.3f" % rolls_to_exit
+\end_layout
+
+\begin_layout Scrap
+
+@
+\end_layout
+
+\begin_layout Standard
+Соберем программу.
+\end_layout
+
+\begin_layout Scrap
+
+<<nardy.py>>=
+\end_layout
+
+\begin_layout Scrap
+
+#!/usr/bin/python
+\end_layout
+
+\begin_layout Scrap
+
+# -*- coding: utf8 -*-
+\end_layout
+
+\begin_layout Scrap
+
+import sys
+\end_layout
+
+\begin_layout Scrap
+
+\end_layout
+
+\begin_layout Scrap
+
+<<пример.
+ функции>>
+\end_layout
+
+\begin_layout Scrap
+
+\end_layout
+
+\begin_layout Scrap
+
+def main( args ):
+\end_layout
+
+\begin_layout Scrap
+
+    <<ответ на вопрос 1>>
+\end_layout
+
+\begin_layout Scrap
+
+\end_layout
+
+\begin_layout Scrap
+
+    <<ответ на вопрос 2>>
+\end_layout
+
+\begin_layout Scrap
+
+\end_layout
+
+\begin_layout Scrap
+
+if __name__ == "__main__" :
+\end_layout
+
+\begin_layout Scrap
+
+    main( sys.argv )
+\end_layout
+
+\begin_layout Scrap
+
+@
+\end_layout
+
+\begin_layout Standard
+и добавим в скрипт сборки строки для её извлечения из документа и проверки.
+\end_layout
+
+\begin_layout Scrap
+
+<<build-script>>=
+\end_layout
+
+\begin_layout Scrap
+
+#!/bin/bash
+\end_layout
+
+\begin_layout Scrap
+
+\end_layout
+
+\begin_layout Scrap
+
+LNW_notangle.sh -x nardy.py "$PROJ_DIR" # Эта строка будет использована позднее
+\end_layout
+
+\begin_layout Scrap
+
+cd "$PROJ_DIR"
+\end_layout
+
+\begin_layout Scrap
+
+pycompile nardy.py
+\end_layout
+
+\begin_layout Scrap
+
+@
+\end_layout
+
+\begin_layout Standard
+Программа написана.
+\end_layout
+
+\begin_layout Standard
+Обнаруженная оптимальная позиция для начала выброса --- 
+\family typewriter
+[0, 0, 0, 3, 5, 7 ]
+\family default
+.
+\end_layout
+
+\begin_layout Section
+Выводы
+\end_layout
+
+\begin_layout Standard
+Здесь будут выводы.
+\end_layout
+
+\begin_layout Section
+Заключение
+\end_layout
+
+\begin_layout Standard
+Здесь будет заключение.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "bibliography"
+options "bibtotoc,utf8gost705u"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
