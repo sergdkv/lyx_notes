@@ -681,29 +681,10 @@ key "Ruckert:2005:UMS,Potse2002225,pharr2010physically,hinchliffe2006chemical"
 \end_layout
 
 \begin_layout Standard
-Поэтому грамотное программирование, конечно, никогда не станет превалирующим
- методом программирования, но никогда и не умрет.
+Поэтому хотя грамотное программирование, конечно, никогда не станет превалирующи
+м методом программирования, но никогда и не умрет.
  Оно постепенно найдет свою нишу, и сделает жизнь там немного лучше.
-\end_layout
-
-\begin_layout Subsubsection
-Семантическоее явля
-\end_layout
-
-\begin_layout Subsubsection
-Упрощенное
-\end_layout
-
-\begin_layout Subsubsection
-Упрощенное, ориентированное на использование текстовых процессоров
-\end_layout
-
-\begin_layout Standard
-NoWeb with Lyx, WinWordWeb
-\end_layout
-
-\begin_layout Subsubsection
-Синтетическое
+ 
 \end_layout
 
 \begin_layout Subsection
@@ -2754,6 +2735,11 @@ build-script
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Plain Layout
+
 # запускаем программу
 \end_layout
 
@@ -2976,10 +2962,6 @@ parselog=LNW-listerrors
 \end_layout
 
 \begin_layout Standard
-.
-\end_layout
-
-\begin_layout Standard
 Скрипт 
 \family typewriter
 LNW-listerrors
@@ -2988,7 +2970,7 @@ LNW-listerrors
 \family typewriter
 LNW_parse_errors.py
 \family default
- написанную на языке python для преобразования текста с сообщением об ошибках.
+ для преобразования текста с сообщением об ошибках.
  (текст программы находится в директории 
 \family typewriter
 scripts
@@ -4326,7 +4308,6 @@ best_target_for( pos, k1, k2 )
 
 \end_layout
 
-
 \begin_layout Standard
 \begin_inset Flex Chunk
 status open
@@ -4728,19 +4709,18 @@ pycompile nardy.py
 \end_layout
 
 \begin_layout Section
-Выводы
-\end_layout
-
-\begin_layout Standard
-Здесь будут выводы.
-\end_layout
-
-\begin_layout Section
 Заключение
 \end_layout
 
 \begin_layout Standard
-Здесь будет заключение.
+Созданная система грамотного программирования использоуется с лаборатории
+ спутникового мониторинга ИАПУ ДВО РАН.
+ 
+\end_layout
+
+\begin_layout Standard
+Опыт ее использования показал, что она действительно помогает создавать
+ хорошие, полезные и долгоживущие программы.
 \end_layout
 
 \begin_layout Standard
