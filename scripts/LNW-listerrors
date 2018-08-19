@@ -1,0 +1,7 @@
+#!/bin/bash
+
+ERR_FNAME=`ls *.make_err | head -n1` 
+
+cat "$ERR_FNAME" | LNW_parse_errors.py
+
+cat *.nw.out >&2

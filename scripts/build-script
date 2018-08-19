@@ -1,0 +1,30 @@
+#!/bin/bash 
+
+export LANG=C
+
+export PROJ_DIR="$1"  # скрипт сборки сможет обращаться к данным переменным 
+export NOWEB_SOURCE="$2"
+export LYX_TMP="$3"
+export NW="${LYX_TMP}/${NOWEB_SOURCE}"
+echo "build-script started"
+echo -n " " PROJ_DIR="$PROJ_DIR"
+echo -n " " NOWEB_SOURCE="$NOWEB_SOURCE"
+echo 
+echo -n " " LYX_TMP="$LYX_TMP"
+echo -n " " NW="<$NW>"
+echo
+
+ERR_FILE="${NW}.make_err" # сообщения о ошибках запишем в данный файл
+B="${NW}.build-script" # скрипт сборки
+
+D=`dirname $B`
+F=`basename $B`
+
+LNW_notangle.sh -x build-script 2>"${ERR_FILE}"
+cp build-script "$B"
+cp .build-script.source_nwindex "$D/.$F.source_nwindex"
+cp .build-script.nwindex "$D/.$F.nwindex"
+
+/bin/bash "$B" 2> >(tee -a "${ERR_FILE}" >&2)
+
+echo "build-script finished"
