@@ -1,8 +1,8 @@
-#LyX 2.0 created this file. For more info see http://www.lyx.org/
-\lyxformat 413
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
 \begin_document
 \begin_header
-\textclass literate-article
+\textclass article
 \begin_preamble
 \usepackage[all]{xy}
 
@@ -41,6 +41,9 @@ xleftmargin=3em
 \usepackage{fancybox}
 \end_preamble
 \use_default_options false
+\begin_modules
+noweb
+\end_modules
 \maintain_unincluded_children false
 \language russian
 \language_package default
@@ -49,13 +52,13 @@ xleftmargin=3em
 \font_roman default
 \font_sans default
 \font_typewriter default
+\font_math auto
 \font_default_family default
 \use_non_tex_fonts false
 \font_sc false
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
-
 \graphics default
 \default_output_format dvi
 \output_sync 1
@@ -81,15 +84,24 @@ xleftmargin=3em
 \pdf_quoted_options "linkcolor=black, citecolor=black, urlcolor=blue, filecolor=blue,pdfpagelayout=OneColumn, pdfnewwindow=true,pdfstartview=XYZ, plainpages=false, pdfpagelabels"
 \papersize a4paper
 \use_geometry true
-\use_amsmath 2
-\use_esint 0
-\use_mhchem 1
-\use_mathdots 1
+\use_package amsmath 2
+\use_package amssymb 2
+\use_package cancel 1
+\use_package esint 0
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
 \cite_engine basic
+\cite_engine_type default
+\biblio_style plain
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
 \suppress_date false
+\justification true
 \use_refstyle 0
 \index Index
 \shortcut idx
@@ -750,7 +762,7 @@ width "40col%"
 status open
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 Пример создания программы в LyX
@@ -1695,7 +1707,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Tabular
 <lyxtabular version="3" rows="2" columns="3">
-<features tabularvalignment="top">
+<features rotate="0" tabularvalignment="top">
 <column alignment="left" valignment="top" width="40text%">
 <column alignment="center" valignment="top" width="15text%">
 <column alignment="left" valignment="top" width="40text%">
@@ -1927,7 +1939,7 @@ progg
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset Caption
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 Документ NoWeb, и полученная программа
@@ -2566,85 +2578,97 @@ build-script $$r $$i $$p
  с помощью компилятора gcc
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
+\begin_inset Flex Chunk
+status open
 
-<<a.cpp>>=
+\begin_layout Plain Layout
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+a.cpp
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
 #include <stdio.h>
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 #include <math.h>
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 main(){
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
   printf( "###########################" );   // в этой строке ошибка (умышленная
 а)
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
   printf( "<<Сообщение>>
 \backslash
 n" );
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
   printf( "###########################
 \backslash
 n" );
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
   return 0;
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 }
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
-@
-\end_layout
-
-\begin_layout Scrap
 
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
+\begin_inset Flex Chunk
+status open
 
-<<Сообщение>>=
+\begin_layout Plain Layout
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Сообщение
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
 Hello world
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
-@
+
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
 
 \end_layout
 
@@ -2652,54 +2676,62 @@ Hello world
 написав в документе
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
+\begin_inset Flex Chunk
+status open
 
-<<build-script>>=
+\begin_layout Plain Layout
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+build-script
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
 #!/bin/bash
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 if [ -f a.out ] ; then rm a.out ; fi;
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 # извлекаем программу из документа
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 #notangle -Ra.cpp "${LYX_TMP}/${NOWEB_SOURCE}" >a.cpp
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 LNW_notangle.sh a.cpp  # Эта строка будет использована позднее
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 # компилируем её
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 g++  a.cpp
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 # компиляция завершена
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
-@
+
 \end_layout
 
 \begin_layout Standard
@@ -2707,24 +2739,32 @@ g++  a.cpp
  
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
+\begin_inset Flex Chunk
+status open
 
-<<build-script>>=
+\begin_layout Plain Layout
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+build-script
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
 # запускаем программу
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 #./a.out
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
-@
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -3255,79 +3295,103 @@ svn update
 Программа вывода простых чисел организована следующим образом
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
+\begin_inset Flex Chunk
+status open
 
-<<ядро программы>>=
+\begin_layout Plain Layout
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+ядро программы
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
 for( int i = a; i <= b; i++ ){
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
    if( <<i - простое число>> ){
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
       printf( "%d - is prime number
 \backslash
 n", i );
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
    }
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 }
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
-@
+
 \end_layout
 
 \begin_layout Standard
 Проверку того, является ли число простым, можно вынести в отдельную функцию:
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
+\begin_inset Flex Chunk
+status open
 
-<<функции>>=
+\begin_layout Plain Layout
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+функции
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
 int is_prime( int n );
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
-@
+
 \end_layout
 
 \begin_layout Standard
 Тогда проверка будет выглядеть следующим образом:
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
+\begin_inset Flex Chunk
+status open
 
-<<i - простое число>>=
+\begin_layout Plain Layout
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+i - простое число
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
    is_prime(i)
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
-@
+
 \end_layout
 
 \begin_layout Standard
@@ -3339,144 +3403,168 @@ int is_prime( int n );
 :
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
+\begin_inset Flex Chunk
+status open
 
-<<опр функций>>=
+\begin_layout Plain Layout
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+опр функций
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
 int is_prime( int n ){
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
    for( int j = 2; j < n; j++ ){
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
       if( n % j == 0 ) return 0;
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
    }
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
    return 1;
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 }
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
-@
+
 \end_layout
 
 \begin_layout Standard
 Соберем программу в файл 
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
+\begin_inset Flex Chunk
+status open
 
-<<prime.c>>=
+\begin_layout Plain Layout
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+prime.c
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
 #include <stdio.h>
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 <<функции>>
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 <<опр функций>>
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 main(){
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
    int a = 2;
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
    int b = 20;
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
    <<ядро программы>>
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 }
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
-@
+
 \end_layout
 
 \begin_layout Standard
 Компиляция и запуск программы:
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
+\begin_inset Flex Chunk
+status open
 
-<<build-script>>=
+\begin_layout Plain Layout
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+build-script
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
 LNW_notangle.sh prime.c
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 # компилируем её
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 g++  prime.c -o prime
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 ./prime
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
-@
+
 \end_layout
 
 \begin_layout Standard
@@ -3638,7 +3726,7 @@ g++  prime.c -o prime
 \[
 S(pos)=\begin{cases}
 pos=0:\,\,\, & 0\\
-pos\neq0:\,\,\, & \frac{1}{36}\sum_{k_{1}\in[1,6],\, k_{2}\in[1,6]}\left(1+\min_{step\in MS(pos,k_{1,}k_{2})}S\left(Next\left(pos,step\right)\right)\right)
+pos\neq0:\,\,\, & \frac{1}{36}\sum_{k_{1}\in[1,6],\,k_{2}\in[1,6]}\left(1+\min_{step\in MS(pos,k_{1,}k_{2})}S\left(Next\left(pos,step\right)\right)\right)
 \end{cases}
 \]
 
@@ -3723,90 +3811,98 @@ S
  будет выглядеть следующим образом:
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
+\begin_inset Flex Chunk
+status open
 
-<<пример.
- функции>>=
+\begin_layout Plain Layout
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+пример.
+  функции
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
 slov = {}
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 def S(pos):
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
    global slov
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
    if <<pos - конечная позиция>>: return 0
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
    h = <<индекс позиции pos в словаре>>
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
    if h in slov : return slov[h]
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
    res = 0.0;
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
    for k1 in [1,2,3,4,5,6] :
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
      for k2 in [1,2,3,4,5,6] :
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
         pos2 = <<результат лучшего хода из позиции pos, для броска k1,k2>>
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
         # print 'best action:', pos, k1, k2, pos2
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
         res += S(pos2) + 1
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
    res = res / 36.;
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
    slov[h] = res
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
    return res
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
-@
+
 \end_layout
 
 \begin_layout Standard
@@ -3818,19 +3914,27 @@ def S(pos):
 Поэтому:
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
+\begin_inset Flex Chunk
+status open
 
-<<индекс позиции pos в словаре>>=
+\begin_layout Plain Layout
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+индекс позиции pos в словаре
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
 sum( pos[i]*(16**i) for i in [0,1,2,3,4,5] )
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
-@
+
 \end_layout
 
 \begin_layout Standard
@@ -3838,19 +3942,27 @@ sum( pos[i]*(16**i) for i in [0,1,2,3,4,5] )
  так:
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
+\begin_inset Flex Chunk
+status open
 
-<<pos - конечная позиция>>=
+\begin_layout Plain Layout
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+pos - конечная позиция
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
 0 == sum( pos )
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
-@
+
 \end_layout
 
 \begin_layout Standard
@@ -3883,285 +3995,301 @@ k2
  позицию и возвращаем, считая что игра закончилась при игре предыдущей костью.
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
+\begin_inset Flex Chunk
+status open
 
-<<пример.
- функции>>=
+\begin_layout Plain Layout
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+пример.
+  функции
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
 def SM1( pos, k ):
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     """список позиций, в которые может перейти игра из позиции pos если
  выпало k"""
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     # заносим список позиций, в которые может перейти игра, в res
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     if <<pos - конечная позиция>> : 
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
        # если pos - конечная позиция то игра закончена
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
        #  возвращаем конечную позицию
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
        yield pos
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
        return
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     else :
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
        for i in [0,1,2,3,4,5]:
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
           if pos[i] == 0: continue
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
           pos2 = pos[:]
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
           pos2[i] -= 1
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
           j = i - k
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
           if j >= 0 : 
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
               pos2[j] += 1 # обычный ход
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
           else :
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
               # выброс 
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
               if j != -1 :
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
                   # позиция фишки не соответствует выпавшему камню,
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
                   # в этом случае выброс производится только с крайней позиции
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
                   if sum( pos[i+1:] ) != 0:
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
                       continue  # позиция не является крайней
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
           yield pos2   # возвращаем результат
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
-@
+
 \end_layout
 
 \begin_layout Standard
 Тогда полный список позиций можно получить следующим образом
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
+\begin_inset Flex Chunk
+status open
 
-<<пример.
- функции>>=
+\begin_layout Plain Layout
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+пример.
+  функции
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
 def SM( pos, k1, k2 ):
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     """список позиций, в которые может перейти игра 
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
        из позиции pos если выпало k1 и k2 (с учетом дублей)""" 
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     res = []
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     if k1 != k2 : # не выпал дубль
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
        for pos1 in SM1( pos, k1 ):
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
           for pos2 in SM1( pos1, k2 ):
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
               res += [pos2]
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
        for pos1 in SM1( pos, k2 ):
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
           for pos2 in SM1( pos1, k1 ):
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
               res += [pos2]
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     else : # выпал дубль
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
       for pos1 in SM1( pos, k1 ):
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
         for pos2 in SM1( pos1, k1 ):
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
           for pos3 in SM1( pos2, k1 ):
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
             for pos4 in SM1( pos3, k1 ):
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
                res += [pos4]
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     # удаляем дубликаты конечных позиций
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     res.sort()
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     res2 = []
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     i = 0
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     for r in res:
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
       if i == 0 or (i>0 and res[i] != res[i-1] ):
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
          res2 += [r]
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
       i += 1
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     return  res2
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
-@
+
 \end_layout
 
 \begin_layout Standard
@@ -4175,83 +4303,105 @@ def SM( pos, k1, k2 ):
  Тогда
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
+\begin_inset Flex Chunk
+status open
 
-<<результат лучшего хода из позиции pos, для броска k1,k2>>=
+\begin_layout Plain Layout
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+результат лучшего хода из позиции pos, для броска k1,k2
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
 best_target_for( pos, k1, k2 )
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
-@
-\end_layout
-
-\begin_layout Scrap
 
 \end_layout
 
-\begin_layout Scrap
-
-<<пример.
- функции>>=
-\end_layout
-
-\begin_layout Scrap
+\begin_layout Chunk
 
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
+\begin_inset Flex Chunk
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+пример.
+ функции
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
 
 def best_target_for( pos, k1, k2 ):
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     best_S = 9999;
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     best_pos = [];
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     for pos2 in SM( pos, k1, k2 ):
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
        a = S(pos2)
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
        if a < best_S :
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
            best_S = a
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
            best_pos = pos2[:]
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
-    return best_pos
+return best_pos
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
-@ 
+@
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -4259,34 +4409,47 @@ def best_target_for( pos, k1, k2 ):
  из указанной позиции для завершения игры.
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
+\begin_inset Flex Chunk
+status open
 
-<<ответ на вопрос 1>>=
+\begin_layout Plain Layout
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+ответ на вопрос 1
 \end_layout
 
-\begin_layout Scrap
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
 
 a = [0,1,10,1,3,0] # начальная позиция игры
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 res = S(a)
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 print "Для позиции " + repr(a),
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 print     "Среднее количество бросков до завершения игры равно " + str(res)
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
-@
+
 \end_layout
 
 \begin_layout Standard
@@ -4294,56 +4457,64 @@ print     "Среднее количество бросков до заверш�
  надо получить набор всех начальных позиций.
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
+\begin_inset Flex Chunk
+status open
 
-<<start
+\begin_layout Plain Layout
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+start 
 \backslash
-_pos <- набор начальных позиций >>=
+_pos <- набор начальных позиций 
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
 startpos = []
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 for p1 in range(0, 15+1):
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
   for p2 in range(p1, 15+1):
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     for p3 in range(p2, 15+1):
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
       for p4 in range(p3, 15+1):
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
         for p5 in range(p4, 15+1):
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
           pos = [p1, p2-p1, p3-p2, p4-p3, p5-p4, 15-p5 ]
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
           start_pos += [pos]
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
-@
+
 \end_layout
 
 \begin_layout Standard
@@ -4352,175 +4523,199 @@ for p1 in range(0, 15+1):
  чтобы занять начальную позицию.
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
+\begin_inset Flex Chunk
+status open
 
-<<ответ на вопрос 2>>=
+\begin_layout Plain Layout
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+ответ на вопрос 2
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
 <<start
 \backslash
 _pos <- набор начальных позиций >>
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 for pos in start_pos:
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     rolls_to_start_pos = (
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
          (pos[0]*5+pos[1]*4+pos[2]*3+pos[3]*2+pos[4]*1+pos[5]*0)/8.166666666
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
                          )
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     rolls_to_exit = S(pos)
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     full_rolls = rolls_to_exit + rolls_to_start_pos
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     print "%6.3f" % full_rolls, "%25s" % repr(pos) ,
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     print  "%6.3f" % rolls_to_start_pos, "%6.3f" % rolls_to_exit
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
-@
+
 \end_layout
 
 \begin_layout Standard
 Соберем программу.
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
+\begin_inset Flex Chunk
+status open
 
-<<nardy.py>>=
+\begin_layout Plain Layout
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+nardy.py
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
 #!/usr/bin/python
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 # -*- coding: utf8 -*-
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 import sys
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 <<пример.
  функции>>
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 def main( args ):
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     <<ответ на вопрос 1>>
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     <<ответ на вопрос 2>>
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 if __name__ == "__main__" :
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
     main( sys.argv )
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
-@
+
 \end_layout
 
 \begin_layout Standard
 и добавим в скрипт сборки строки для её извлечения из документа и проверки.
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Standard
+\begin_inset Flex Chunk
+status open
 
-<<build-script>>=
+\begin_layout Plain Layout
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+build-script
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
 #!/bin/bash
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 LNW_notangle.sh -x nardy.py "$PROJ_DIR" # Эта строка будет использована позднее
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 cd "$PROJ_DIR"
 \end_layout
 
-\begin_layout Scrap
+\begin_layout Plain Layout
 
 pycompile nardy.py
 \end_layout
 
-\begin_layout Scrap
+\end_inset
 
-@
+
 \end_layout
 
 \begin_layout Standard
